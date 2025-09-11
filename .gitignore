@@ -1,0 +1,17 @@
+node_modules
+build
+*.patch
+coverage
+
+# Ignore .env files for production
+.env
+
+# MAC OS
+.DS_Store 
+
+# Cypress
+screenshots
+
+.env.sentry-build-plugin
+
+reports/**/*.html
