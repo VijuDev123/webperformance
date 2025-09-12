@@ -90,13 +90,6 @@ export default function MainPage() {
 
   return (
     <PageContainer>
-      <button
-        onClick={() => {
-          throw new Error("Test Error");
-        }}
-      >
-        Button
-      </button>
       <SearchBar
         onSuggestionClick={onSuggestionClick}
         onChange={onChangeSearchText}

@@ -10,7 +10,7 @@ module.exports = {
     filename: "[contenthash].bundle.js",
     publicPath: "/",
   },
-  mode: "development",
+  mode: "production",
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "public", "index.html"),
@@ -27,6 +27,9 @@ module.exports = {
     historyApiFallback: true,
     static: {
       publicPath: "/",
+    },
+    open: {
+      target: ["http://localhost:3000"], // 👈 force the URL
     },
   },
   module: {
