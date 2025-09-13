@@ -1,4 +1,14 @@
 // api types
+declare module "*.png?as=webp" {
+  const value: any;
+  export = value;
+}
+
+declare module "*.jpeg?as=webp" {
+  const value: any;
+  export = value;
+}
+
 type ApiResponse<T> = {
   results: T[];
   page: number;

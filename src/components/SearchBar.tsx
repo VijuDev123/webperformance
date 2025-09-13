@@ -1,12 +1,9 @@
-import React, {
-  useEffect,
-  useRef,
-} from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import chroma from "chroma-js";
 
-import PrimaryButton from "../components/styled/PrimaryButton";
-import backgroundImage from "../assets/search-header.png";
+import backgroundImage from "../assets/search-header.png?as=webp";
+
 import { useSelector } from "react-redux";
 import { RootState } from "../store/redux/store";
 import settings from "../settings";
@@ -41,7 +38,7 @@ export default function SearchBar({
     function handleClickOutside(event: MouseEvent) {
       // Type assertion to ensure the target is a Node
       const target = event.target as Node;
-  
+
       if (ref.current && !ref.current.contains(target)) {
         setSuggestions([]);
       }
@@ -57,7 +54,9 @@ export default function SearchBar({
 
   return (
     <SearchBarContainer>
-      <SearchBarTitle color={settings.colors.background}>Welcome.</SearchBarTitle>
+      <SearchBarTitle color={settings.colors.background}>
+        Welcome.
+      </SearchBarTitle>
       <SearchBarSubTitle color={settings.colors.background}>
         Millions of movies, TV shows and people to discover. Explore now.
       </SearchBarSubTitle>
@@ -80,7 +79,7 @@ export default function SearchBar({
             <SuggestionContainer ref={ref}>
               {suggestions.map((suggestion: string) => (
                 <Suggestion
-                  onClick={(() => (onSuggestionClick(suggestion)))}
+                  onClick={() => onSuggestionClick(suggestion)}
                   key={suggestion}
                 >
                   {suggestion}

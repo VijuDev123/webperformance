@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   entry: path.join(__dirname, "src/index.tsx"),
@@ -14,6 +15,7 @@ module.exports = {
       template: path.join(__dirname, "public", "index.html"),
     }),
     new Dotenv(),
+    new CleanWebpackPlugin(), // cleans the build folder before each build
   ],
   module: {
     rules: [

@@ -1,21 +1,58 @@
 import React from "react";
 import styled from "styled-components";
-import logoWhite from "../assets/logo-white.png";
+import logoWhite from "../assets/logo-white.png?as=webp";
+
 import settings from "../settings"; // Assuming settings is in the parent directory
 
 export default function Footer() {
   return (
     <FooterContainer>
       <Nav aria-label="Footer navigation">
-        <FooterLink href="https://www.youtube.com" aria-label="Visit our YouTube channel" data-testid="footer-link-youtube">Youtube</FooterLink>
-        <FooterLink href="https://www.linkedin.com" aria-label="Connect on LinkedIn" data-testid="footer-link-linkedin">LinkedIn</FooterLink>
-        <FooterLink href="https://www.theseniordev.com" aria-label="Visit our website" data-testid="footer-link-website">Website</FooterLink>
-        <FooterLink href="https://dev.to" aria-label="Read our posts on Dev.to" data-testid="footer-link-devto">Dev.to</FooterLink>
-        <FooterLink href="https://www.medium.com" aria-label="Follow us on Medium" data-testid="footer-link-medium">Medium</FooterLink>
+        <FooterLink
+          href="https://www.youtube.com"
+          aria-label="Visit our YouTube channel"
+          data-testid="footer-link-youtube"
+        >
+          Youtube
+        </FooterLink>
+        <FooterLink
+          href="https://www.linkedin.com"
+          aria-label="Connect on LinkedIn"
+          data-testid="footer-link-linkedin"
+        >
+          LinkedIn
+        </FooterLink>
+        <FooterLink
+          href="https://www.theseniordev.com"
+          aria-label="Visit our website"
+          data-testid="footer-link-website"
+        >
+          Website
+        </FooterLink>
+        <FooterLink
+          href="https://dev.to"
+          aria-label="Read our posts on Dev.to"
+          data-testid="footer-link-devto"
+        >
+          Dev.to
+        </FooterLink>
+        <FooterLink
+          href="https://www.medium.com"
+          aria-label="Follow us on Medium"
+          data-testid="footer-link-medium"
+        >
+          Medium
+        </FooterLink>
       </Nav>
       <LogoSection>
-        <FooterLogo src={logoWhite} alt="theSeniorDev Logo" data-testid="footer-logo" />
-        <CopyrightText data-testid="footer-copyright">© {new Date().getFullYear()} by theSeniorDev.com</CopyrightText>
+        <FooterLogo
+          src={logoWhite}
+          alt="theSeniorDev Logo"
+          data-testid="footer-logo"
+        />
+        <CopyrightText data-testid="footer-copyright">
+          © {new Date().getFullYear()} by theSeniorDev.com
+        </CopyrightText>
       </LogoSection>
     </FooterContainer>
   );

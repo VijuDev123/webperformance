@@ -1,4 +1,4 @@
-import placeholder from "../assets/movie-placeholder.png";
+import placeholder from "../assets/movie-placeholder.png?as=webp";
 import axios from "axios";
 
 export default class ApiClient {
