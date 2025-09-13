@@ -1,7 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
-const { sentryWebpackPlugin } = require("@sentry/webpack-plugin");
 
 module.exports = {
   entry: path.join(__dirname, "src/index.tsx"),
@@ -10,32 +9,16 @@ module.exports = {
     filename: "[contenthash].bundle.js",
     publicPath: "/",
   },
-  mode: "production",
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "public", "index.html"),
     }),
     new Dotenv(),
-    sentryWebpackPlugin({
-      authToken: process.env.SENTRY_AUTH_TOKEN,
-      org: "theseniordev",
-      project: "the-movie-app",
-    }),
   ],
-  devServer: {
-    port: 3000,
-    historyApiFallback: true,
-    static: {
-      publicPath: "/",
-    },
-    open: {
-      target: ["http://localhost:3000"], // 👈 force the URL
-    },
-  },
   module: {
     rules: [
       {
-        test: /\.m?js|jsx$/,
+        test: /\.(js|jsx)$/, // ✅ fix regex
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: "babel-loader",
@@ -48,7 +31,7 @@ module.exports = {
         },
       },
       {
-        test: /\.ts|tsx?$/,
+        test: /\.(ts|tsx)$/, // ✅ fix regex
         use: "ts-loader",
         exclude: /node_modules/,
       },

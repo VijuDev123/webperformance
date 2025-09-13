@@ -4,10 +4,10 @@
   "description": "Use the bare bone mehtod to break down UI in component structures and distribute state.",
   "main": "index.js",
   "scripts": {
-"production": "npm run build && serve build -p 3000 --single",
-    "build": "webpack",
-    "start": "webpack serve",
-    "dev": "webpack serve --mode development",
+    "production": "npm run build && serve build -p 3000 --single",
+    "build": "webpack --config webpack.prod.js",
+    "start": "webpack serve --config webpack.dev.js",
+    "dev": "webpack serve --open --config webpack.dev.js",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:dev": "jest --watch",
@@ -35,8 +35,9 @@
   "homepage": "https://github.com/theseniordev/sm_bare_bone_method#readme",
   "devDependencies": {
     "@babel/core": "^7.23.6",
-    "@babel/preset-env": "^7.23.6",
-    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
     "@sentry/webpack-plugin": "^4.3.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.1.2",
@@ -89,7 +90,8 @@
     "wait-on": "^7.2.0",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^4.15.1",
+    "webpack-merge": "^6.0.1"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
