@@ -4,13 +4,17 @@ import styled from "styled-components";
 
 import movieApiClient from "../utils/apiClient";
 import settings from "../settings";
+import { ImageSize } from "../utils/MovieApiClient";
 
 interface SimpleCardProps {
   movie: Movie;
- "data-testid": string;
+  "data-testid": string;
 }
 
-export default function SimpleSliderCard({movie, "data-testid": dataTestId}: SimpleCardProps) {
+export default function SimpleSliderCard({
+  movie,
+  "data-testid": dataTestId,
+}: SimpleCardProps) {
   return (
     <SimpleCardContainer
       data-testid={dataTestId}
@@ -22,7 +26,12 @@ export default function SimpleSliderCard({movie, "data-testid": dataTestId}: Sim
         aria-label={`View details of ${movie.title}`}
       >
         <SimpleCardImage
-          src={movieApiClient.buildMoviePosterUrl(movie.poster_path)}
+          loading="lazy"
+          width="152"
+          src={movieApiClient.buildMoviePosterUrl(
+            movie.poster_path,
+            ImageSize.small
+          )}
           data-testid={`simple-movie-card-${movie.id}`}
           alt={`${movie.title} poster`}
         ></SimpleCardImage>

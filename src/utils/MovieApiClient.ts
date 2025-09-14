@@ -1,6 +1,13 @@
 import placeholder from "../assets/movie-placeholder.png?as=webp";
 import axios from "axios";
 
+export enum ImageSize{
+  small = "small",
+  medium = "medium",
+  large = "large",
+  micro = "micro",
+}
+
 export default class ApiClient {
   private apiKey: string;
   private apiUrl: string;
@@ -10,6 +17,20 @@ export default class ApiClient {
     this.apiUrl = apiUrl;
     this.apiKey = apiKey;
     this.imageUrl = "https://image.tmdb.org/t/p/w600_and_h900_bestv2";
+  }
+
+    buildMoviePosterUrl(relativeUrl: string, size: ImageSize = ImageSize.small): string {
+    if (!relativeUrl) return placeholder;
+    return `${this.imageUrl}${relativeUrl}`;
+    const apiImgSizes = {
+      micro: "w92",
+      small: "w154",
+      medium: "w500",
+      large: "w600_and_h900_bestv2",
+    };
+    const imageSize = apiImgSizes[size];
+    const baseUrl = "https://image.tmdb.org/t/p";
+    return `${baseUrl}/${imageSize}${relativeUrl}`;
   }
 
   private async fetchFromApi<T>(url: string): Promise<T> {
@@ -26,11 +47,6 @@ export default class ApiClient {
       // TODO: push the error to a logging service
       throw new Error("An error has occurred while fetching data")
     }
-  }
-
-  buildMoviePosterUrl(relativeUrl: string): string {
-    if (!relativeUrl) return placeholder;
-    return `${this.imageUrl}${relativeUrl}`;
   }
 
   async getMovieDetail(movieId: string): Promise<FullMovieResponse> {

@@ -31,6 +31,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
     >
       <img
         height="238"
+        width="154"
         src={movieApiClient.buildMoviePosterUrl(movie.poster_path)}
       ></img>
       <MovieCardSummary>
