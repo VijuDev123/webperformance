@@ -6,6 +6,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import GlobalStyle from "./globalStyles";
 import "./styles.css";
+import "./assets/poppins.css";
 
 const container = document.getElementById("root");
 

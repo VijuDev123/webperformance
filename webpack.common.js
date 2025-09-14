@@ -29,6 +29,7 @@ module.exports = {
               "@babel/preset-react",
               ["@babel/preset-env", { targets: { ie: "11" } }],
             ],
+            outputPath: "images/",
           },
         },
       },
@@ -48,6 +49,16 @@ module.exports = {
             loader: "file-loader",
           },
         ],
+      },
+      {
+        test: /\.(woff2)$/i,
+        use: {
+          loader: "file-loader",
+          options: {
+            outputPath: "fonts/",
+            name: "[contenthash]_[name].[ext]",
+          },
+        },
       },
     ],
   },
