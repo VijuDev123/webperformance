@@ -4,6 +4,8 @@ const { sentryWebpackPlugin } = require("@sentry/webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const HtmlCriticalWebpackPlugin = require("html-critical-webpack-plugin");
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const path = require("path");
 
@@ -27,6 +29,10 @@ module.exports = merge(common, {
       authToken: process.env.SENTRY_AUTH_TOKEN,
       org: "theseniordev",
       project: "the-movie-app",
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: "json", // Generate a stats.json file
+      generateStatsFile: true, // Save bundle analysis
     }),
   ],
   optimization: {
