@@ -81,15 +81,15 @@ type ApiError = {
 
 type ApiResponseGeneric<T> = ApiError | ApiResponse<T> | FullMovieResponse;
 
-
+interface MovieImage {
+  file_path: string;
+}
 interface MovieImageResponse{
   backdrops: MovieImage[];
   posters: MovieImage[];
 }
 
-interface MovieImage {
-  file_path: string;
-}
+
 
 interface CastMember {
   adult: boolean;

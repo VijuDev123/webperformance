@@ -1,6 +1,5 @@
 import React from "react";
 import _ from "lodash";
-import moment from "moment";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import chroma from "chroma-js";
@@ -9,6 +8,7 @@ import { RootState } from "../store/redux/store";
 import { useSelector } from "react-redux";
 import movieApiClient from "../utils/apiClient";
 import settings from "../settings";
+import { formatDate } from "../utils/formatDate";
 
 interface MovieCardProps {
   movie: Movie;
@@ -42,7 +42,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
           {movie.title}
         </MovieTitle>
         <ReleaseDate $color={theme.foreground}>
-          Release Date: {moment(movie.release_date).format("MMM Do, YYYY")}
+          Release Date: {formatDate(movie.release_date)}{" "}
         </ReleaseDate>
         <MoviePlot $color={theme.foreground}>
           Plot: {plotShorten(movie.overview)}

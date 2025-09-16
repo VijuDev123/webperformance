@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import moment from "moment";
 import styled from "styled-components";
 import settings from "../../settings";
 import chroma from "chroma-js";
 import { DarkModeContext } from "../../store/context";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/redux/store";
+import { formatDate } from "../../utils/formatDate";
 
 export default function MovieReviewCard({ review }: { review: MovieReview }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -14,22 +14,36 @@ export default function MovieReviewCard({ review }: { review: MovieReview }) {
     setIsExpanded(!isExpanded);
   };
 
-  const expandedStateLabel = isExpanded ? "Collapse review content" : "Expand review content";
+  const expandedStateLabel = isExpanded
+    ? "Collapse review content"
+    : "Expand review content";
   const theme = useSelector((state: RootState) => state.themeReducer.theme);
 
   return (
-    <Card aria-label={`Review by ${review.author_details.username}`} $backgroundColor={theme.background_secondary} $borderColor={theme.background_secondary}>
+    <Card
+      aria-label={`Review by ${review.author_details.username}`}
+      $backgroundColor={theme.background_secondary}
+      $borderColor={theme.background_secondary}
+    >
       <ReviewAuthor $color={theme.foreground}>
         Review by <strong>{review.author_details.username}</strong>
       </ReviewAuthor>
-      <ReviewContent $expanded={isExpanded} $color={theme.foreground} aria-expanded={isExpanded} data-testid="movie-review-card-content">
+      <ReviewContent
+        $expanded={isExpanded}
+        $color={theme.foreground}
+        aria-expanded={isExpanded}
+        data-testid="movie-review-card-content"
+      >
         {review.content}
       </ReviewContent>
       <ViewMoreButton onClick={toggleExpanded} aria-label={expandedStateLabel}>
         {isExpanded ? "View Less" : "View More"}
       </ViewMoreButton>
-      <ReviewDate $color={theme.foreground} aria-label={`Review date: ${moment(review.created_at).format("MMMM Do, YYYY")}`}>
-        Date: {moment(review.created_at).format("MMMM Do, YYYY")}
+      <ReviewDate
+        $color={theme.foreground}
+        aria-label={`Release Date: {formatDate(movie.release_date)}{" "}`}
+      >
+        Date: {formatDate(review.created_at)}{" "}
       </ReviewDate>
     </Card>
   );
@@ -43,7 +57,8 @@ interface CardProps {
 const Card = styled.div<CardProps>`
   background: ${(props) => props.$backgroundColor};
   border-radius: 8px;
-  box-shadow: 0 2px 4px ${(props) => chroma(props.$borderColor).alpha(0.2).css()};
+  box-shadow: 0 2px 4px
+    ${(props) => chroma(props.$borderColor).alpha(0.2).css()};
   padding: 20px;
   margin-bottom: 20px;
   width: 100%;
@@ -69,7 +84,7 @@ const ReviewContent = styled.p<ReviewContentProps>`
   line-height: 1.6;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: ${(props) => (props.$expanded ? 'none' : '3')};
+  -webkit-line-clamp: ${(props) => (props.$expanded ? "none" : "3")};
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
 `;
