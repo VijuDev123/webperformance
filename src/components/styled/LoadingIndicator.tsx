@@ -1,6 +1,6 @@
-import styled, { keyframes } from "styled-components";
+import React from "react";
+import styled from "styled-components";
 import settings from "../../settings";
-import {CircularProgress} from "@mui/material";
 
 interface LoadingIndicatorProps {
   "data-testid": string;
@@ -9,22 +9,8 @@ interface LoadingIndicatorProps {
 const LoadingIndicator = ({
   "data-testid": dataTestId,
 }: LoadingIndicatorProps) => (
-  <LoadingComponent data-testid={dataTestId}>
-    <CircularProgress />
-  </LoadingComponent>
+  <LoadingComponent data-testid={dataTestId}></LoadingComponent>
 );
-
-const spinAnimation = keyframes`
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-`;
-
-const Spinner = styled.svg`
-  animation: ${spinAnimation} 1s linear infinite;
-  height: 50px;
-  width: 50px;
-  fill: ${settings.colors.foreground};
-`;
 
 export const LoadingComponent = styled.div`
   color: ${settings.colors.foreground};
