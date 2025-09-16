@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: path.join(__dirname, "src/index.tsx"),
@@ -16,6 +17,9 @@ module.exports = {
     }),
     new Dotenv(),
     new CleanWebpackPlugin(), // cleans the build folder before each build
+    new MiniCssExtractPlugin({
+      filename: "[contenthash].css",
+    }),
   ],
   module: {
     rules: [
@@ -40,7 +44,7 @@ module.exports = {
       },
       {
         test: /\.(sa|sc|c)ss$/,
-        use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
