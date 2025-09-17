@@ -9,6 +9,7 @@ import {
   PageSection,
   SectionTitle,
 } from "./styled";
+import SimpleSliderCardPlaceHolder from "./SimpleSliderCardPlaceHolder";
 
 interface MovieSliderProps {
   movieList: Movie[] | undefined;
@@ -17,6 +18,7 @@ interface MovieSliderProps {
   listType?: "upcoming" | "trending" | "top-rated";
   loading?: boolean;
 }
+const moviePlaceholderList = Array.from({ length: 20 }, (_, i) => i + 1);
 
 export default function MovieSlider({
   movieList,
@@ -28,9 +30,16 @@ export default function MovieSlider({
   if (loading) {
     return (
       <PageSection>
-        <LoadingIndicator
-          data-testid={`${listType}-movies-loading-indicator"`}
-        />
+        <SectionTitle>{headingText}</SectionTitle>
+        <MovieSliderContainer
+          data-testid={`${listType}-movies-container-loading`}
+          aria-label={`List of ${movieList} movies loading`}
+          role="list"
+        >
+          {moviePlaceholderList.map((key: number) => (
+            <SimpleSliderCardPlaceHolder key={key} />
+          ))}
+        </MovieSliderContainer>
       </PageSection>
     );
   }

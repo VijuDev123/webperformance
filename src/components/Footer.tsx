@@ -45,10 +45,14 @@ export default function Footer() {
         </FooterLink>
       </Nav>
       <LogoSection>
+        {" "}
         <FooterLogo
           src={logoWhite}
           alt="theSeniorDev Logo"
           data-testid="footer-logo"
+          loading="lazy"
+          height="30"
+          width="160"
         />
         <CopyrightText data-testid="footer-copyright">
           © {new Date().getFullYear()} by theSeniorDev.com
