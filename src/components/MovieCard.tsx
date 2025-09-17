@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -16,11 +16,19 @@ interface MovieCardProps {
 
 export default function MovieCard({ movie }: MovieCardProps) {
   const theme = useSelector((state: RootState) => state.themeReducer.theme);
+  const [shortPlot, setShortPlot] = useState(movie.overview);
 
   function plotShorten(text: string, length = 250) {
-    const shortText = _.take(text.split(""), length).join("");
-    return shortText + "...";
+    return import("lodash").then((_) => {
+      // dynamic import
+      const shortText = _.default.take(text.split(""), length).join("");
+      setShortPlot(shortText + "...");
+    });
   }
+
+  useEffect(() => {
+    plotShorten(movie.overview);
+  }, [movie]);
 
   return (
     <MovieCardContainer
@@ -44,9 +52,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
         <ReleaseDate $color={theme.foreground}>
           Release Date: {formatDate(movie.release_date)}{" "}
         </ReleaseDate>
-        <MoviePlot $color={theme.foreground}>
-          Plot: {plotShorten(movie.overview)}
-        </MoviePlot>
+        <MoviePlot $color={theme.foreground}>+ Plot: {shortPlot}</MoviePlot>
       </MovieCardSummary>
     </MovieCardContainer>
   );
