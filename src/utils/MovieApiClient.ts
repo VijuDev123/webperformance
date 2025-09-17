@@ -1,5 +1,4 @@
 import placeholder from "../assets/movie-placeholder.png?as=webp";
-import axios from "axios";
 
 export enum ImageSize{
   small = "small",
@@ -35,12 +34,13 @@ export default class ApiClient {
 
   private async fetchFromApi<T>(url: string): Promise<T> {
     try {
-      const {data} = await axios(url, {
+      const response = await fetch(url, {
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
         },
       });
+      const data = await response.json();
       return data as T;
     } catch (err) {
       // console.error(err);

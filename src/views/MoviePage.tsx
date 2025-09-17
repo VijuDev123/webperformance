@@ -1,35 +1,34 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import styled, { ThemeContext } from "styled-components";
-import { FaStar, FaRegStar } from "react-icons/fa";
 
 import MovieReviewList from "../components/movieReviews/MovieReviewList";
-import {PageContainer} from "../components/styled";
+import { PageContainer } from "../components/styled";
 import movieApiClient from "../utils/apiClient";
 import MovieImages from "../components/MovieImages";
 import SimilarMovies from "../components/SimilarMovies";
 import MovieCredits from "../components/MovieCredits";
-import settings from "../settings"
+import settings from "../settings";
 import chroma from "chroma-js";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/redux/store";
 import { useQuery } from "react-query";
+import SolidStar from "../components/styled/SolidStar";
+import RegularStar from "../components/styled/RegularStar";
 
 export default function MoviePage() {
   const { id } = useParams() as { id: string };
   const theme = useSelector((state: RootState) => state.themeReducer.theme);
-  const {
-    data: movieData
-  } = useQuery<FullMovieResponse, Error>({
+  const { data: movieData } = useQuery<FullMovieResponse, Error>({
     queryKey: ["movie-detail", id],
     queryFn: () => movieApiClient.getMovieDetail(id),
-    retry: false
+    retry: false,
   });
 
-  const renderStars = (rating:number) => {
+  const renderStars = (rating: number) => {
     let stars = [];
     for (let i = 1; i <= 5; i++) {
-      stars.push(i <= rating ? <FaStar key={i} /> : <FaRegStar key={i} />);
+      stars.push(i <= rating ? <RegularStar key={i} /> : <SolidStar key={i} />);
     }
     return stars;
   };
@@ -38,7 +37,10 @@ export default function MoviePage() {
     <PageContainer as="main">
       <MovieLayout>
         {movieData ? (
-          <MoviePoster src={movieApiClient.buildMoviePosterUrl(movieData.poster_path)} alt={`${movieData.title} Poster`} />
+          <MoviePoster
+            src={movieApiClient.buildMoviePosterUrl(movieData.poster_path)}
+            alt={`${movieData.title} Poster`}
+          />
         ) : (
           <PlaceholderPoster />
         )}
@@ -47,9 +49,11 @@ export default function MoviePage() {
           <MovieInfo $color={theme.foreground}>{movieData?.tagline}</MovieInfo>
           <MovieRating>
             {movieData && renderStars(Math.round(movieData.vote_average / 2))}
-            <RatingLabel $color={theme.foreground}>Rating: {parseInt(String(movieData?.vote_average))} / 10</RatingLabel>
-          </MovieRating>          
-        <MoviePlot $color={theme.foreground}>{movieData?.overview}</MoviePlot>
+            <RatingLabel $color={theme.foreground}>
+              Rating: {parseInt(String(movieData?.vote_average))} / 10
+            </RatingLabel>
+          </MovieRating>
+          <MoviePlot $color={theme.foreground}>{movieData?.overview}</MoviePlot>
         </MovieDetailCard>
       </MovieLayout>
       <SimilarMovies movieId={id} />
@@ -62,8 +66,7 @@ export default function MoviePage() {
 }
 
 // Styled components
-const {breakpoints} = settings;
-
+const { breakpoints } = settings;
 
 const PlaceholderPoster = styled.div`
   // Similar styles to MoviePoster
@@ -74,7 +77,7 @@ interface MovieInfoProps {
 }
 
 const MovieInfo = styled.p<MovieInfoProps>`
-  color: ${props => props.$color};
+  color: ${(props) => props.$color};
 `;
 
 const MovieRating = styled.div`
@@ -89,7 +92,7 @@ interface RatingLabelProps {
 }
 
 const RatingLabel = styled.span<RatingLabelProps>`
-  color: ${props => props.$color};
+  color: ${(props) => props.$color};
   margin-left: 10px;
   font-size: 0.8em;
 `;
@@ -102,9 +105,8 @@ const MoviePlot = styled.div<MoviePlotProps>`
   padding-top: 20px;
   border-top: solid 1px ${chroma(settings.colors.foreground).alpha(0.1).css()};
   margin-top: 20px;
-  color: ${props => props.$color};
+  color: ${(props) => props.$color};
 `;
-
 
 const MovieLayout = styled.div`
   display: grid;
@@ -140,7 +142,7 @@ const MoviePoster = styled.img`
   }
 
   @media (max-width: ${breakpoints.md}) {
-    width: 80%; 
+    width: 80%;
     margin: 0 auto;
   }
 `;
@@ -150,13 +152,13 @@ interface MovieDetailCardProps {
 }
 
 const MovieDetailCard = styled.div<MovieDetailCardProps>`
-  background: ${props => props.$backgroundColor};
+  background: ${(props) => props.$backgroundColor};
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px ${chroma(settings.colors.foreground).alpha(0.1).css()};
 
   @media (max-width: ${breakpoints.md}) {
-    padding: 10px; 
+    padding: 10px;
   }
 `;
 
@@ -167,7 +169,7 @@ interface MovieTitleProps {
 const MovieTitle = styled.h1<MovieTitleProps>`
   margin-top: 0;
   font-size: 2.6em;
-  color: ${props => props.$color};
+  color: ${(props) => props.$color};
   @media (max-width: ${breakpoints.md}) {
     font-size: 2em; // Adjust as needed
   }
@@ -193,4 +195,3 @@ const BackButton = styled(Link)`
     padding: 8px 12px; // Adjust button size for smaller screens
   }
 `;
-
